@@ -1,9 +1,19 @@
 import javax.xml.stream.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import it.kibo.fp.lib.* ;
 
 public class Main {
     public static void main(String[] args) throws XMLStreamException {
+
+        Menu menu = new Menu("Seleziona la mappa da usare", new String[]{
+                "Map 5",
+                "Map 12",
+                "Map 50",
+                "Map 200",
+                "Map 2000",
+                "Map 10000"
+        }, true, true, true);
 
         //Inizializzazione degli XMLStreamreader
         XMLInputFactory xmlif;
@@ -21,7 +31,6 @@ public class Main {
         String pathMap200 = "./Input_File/PgAr_Map_200.xml";
         String pathMap2000 = "./Input_File/PgAr_Map_2000.xml";
         String pathMap10000 = "./Input_File/PgAr_Map_10000.xml";
-
 
         //Inizializzazione per l'input
         try {
@@ -64,6 +73,8 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        int scelta = menu.choose();
+
         while (xmlrMap5.hasNext()) { // continua a leggere finché ha eventi a disposizione
             switch (xmlrMap5.getEventType()) { // switch sul tipo di evento
                 case XMLStreamConstants.START_DOCUMENT: // inizio del documento: stampa che inizia il documento
@@ -87,7 +98,7 @@ public class Main {
 
 
 
-        //Ciao
+
         //Inizializzazione per l'output
         XMLOutputFactory xmlof;
         XMLStreamWriter xmlw = null;
