@@ -8,6 +8,7 @@ public class Citta {
     private int h;
     private ArrayList<Integer> link;
 
+    //costruttore
     public Citta(int id, String nome, int x, int y, int h, ArrayList<Integer> link) {
         this.id = id;
         this.nome = nome;

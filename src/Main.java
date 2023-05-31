@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-    public static final String SALUTI = "Arrivederci";
+    public static final String SALUTI = "File XML genrato, arrivederci";
     public static final String[] ENTRIES = {"Map 5", "Map 12", "Map 50", "Map 200", "Map 2000", "Map 10000"};
     public static final String TITLE = "Seleziona la mappa da usare";
 

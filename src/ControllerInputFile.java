@@ -8,6 +8,15 @@ import java.util.ArrayList;
 
 public class ControllerInputFile {
 
+    public static final String TAG_CITY = "city";
+    public static final String TAG_LINK = "link";
+    public static final String TAG_MAP = "map";
+    public static final String CASE_ID = "id";
+    public static final String CASE_NAME = "name";
+    public static final String CASE_X = "x";
+    public static final String CASE_Y = "y";
+    public static final String CASE_H = "h";
+    public static final String ELABORAZIONE_IN_CORSO = "Elaborazione in corso...";
     //Inizializzazione degli XMLStreamreader
     private static XMLInputFactory xmlif;
     private static XMLStreamReader xmlrMap = null;
@@ -22,7 +31,11 @@ public class ControllerInputFile {
     private static String pathMap2000 = "./Input_File/PgAr_Map_2000.xml";
     private static String pathMap10000 = "./Input_File/PgAr_Map_10000.xml";
 
-    //Metodi per stampare il contenuto dei file xml
+    /**
+     *
+     * @param n
+     * @throws XMLStreamException
+     */
     public static void leggiXML(int n) throws XMLStreamException {
         int id= 0;
         String nome= null;
@@ -59,55 +72,60 @@ public class ControllerInputFile {
         while (xmlrMap.hasNext()) { // continua a leggere finché ha eventi a disposizione
             switch (xmlrMap.getEventType()) { // switch sul tipo di evento
                 case XMLStreamConstants.START_DOCUMENT: // inizio del documento: stampa che inizia il documento
-                    //System.out.println("Start Read Doc " + pathMap5);
+                    System.out.println(ELABORAZIONE_IN_CORSO);
                     break;
                 case XMLStreamConstants.START_ELEMENT://iniziodiunelemento:stampailnomedeltageisuoiattributi
 
+                    //for per leggere gli attributi delle città e uno switch per distinguere l'informazione letta e
+                    //inserirne il valore all'interno di una variabile temporanea che sarà poi utilizzata per
+                    //istanziare la nuova città
                     for(int i = 0; i< xmlrMap.getAttributeCount(); i++){
-                        if(xmlrMap.getLocalName().equals("city")) {
+                        if(xmlrMap.getLocalName().equals(TAG_CITY)) { //if per verificare che il tag in lettura corrisponda a city
                             nome_att = xmlrMap.getAttributeLocalName(i);
                             switch (nome_att) {
-                                case "id":
+                                case CASE_ID: //se il nome dell'attributo corrisponde ad id, ne viene assegnato il valore alla relativa variabile temporanea
                                     id = Integer.parseInt(xmlrMap.getAttributeValue(i));
                                     break;
 
-                                case "name":
+                                case CASE_NAME: //se il nome dell'attributo corrisponde a name, ne viene assegnato il valore alla relativa variabile temporanea
                                     nome = xmlrMap.getAttributeValue(i);
                                     break;
 
-                                case "x":
+                                case CASE_X: //se il nome dell'attributo corrisponde ad x, ne viene assegnato il valore alla relativa variabile temporanea
                                     x = Integer.parseInt(xmlrMap.getAttributeValue(i));
                                     break;
 
-                                case "y":
+                                case CASE_Y: //se il nome dell'attributo corrisponde ad y, ne viene assegnato il valore alla relativa variabile temporanea
                                     y = Integer.parseInt(xmlrMap.getAttributeValue(i));
                                     break;
 
-                                case "h":
+                                case CASE_H: //se il nome dell'attributo corrisponde ad h, ne viene assegnato il valore alla relativa variabile temporanea
                                     h = Integer.parseInt(xmlrMap.getAttributeValue(i));
                                     break;
                             }
                         }
-                        if(xmlrMap.getLocalName().equals("link")){
-                            link.add(Integer.parseInt(xmlrMap.getAttributeValue(i)));
+                        if(xmlrMap.getLocalName().equals(TAG_LINK)){ //if per verificare che il tag in lettura corrisponda a link
+                            link.add(Integer.parseInt(xmlrMap.getAttributeValue(i))); //si aggiungono i link all'Array temporaneo che verra poi usato per istanziare la citta
                         }
                     }
                     break;
 
                 case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
-                    if(xmlrMap.getLocalName().equals("city")){
+
+                    //if per istanziare la citta alla chiusura del relativo tag, aggiungendola nel temporaneo Arraylist
+                    //che servirà a istanziare la mappa
+                    if(xmlrMap.getLocalName().equals(TAG_CITY)){
                         Citta citta=new Citta(id, nome, x, y, h, link);
                         cittas.add(citta);
                         link=new ArrayList<Integer>();
-                    } else if (xmlrMap.getLocalName().equals("map")){
+                    } else if (xmlrMap.getLocalName().equals(TAG_MAP)){//creazione della mappa alla chiusura del relativo tag
                         mappa=new Mappa(cittas);
                         link=new ArrayList<Integer>();
                         mappa.calcoloPesi(mappa);
-                        //mappa.printMappa(mappa);
                     }
                     break;
                 case XMLStreamConstants.COMMENT:
-                    System.out.println("// commento " + xmlrMap.getText()); break; // commento: ne stampa il contenuto
+                    break;
                 case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
                     if (xmlrMap.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
                         System.out.println("-> " + xmlrMap.getText());
