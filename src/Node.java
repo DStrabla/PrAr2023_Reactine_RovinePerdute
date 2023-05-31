@@ -1,4 +1,4 @@
-// Una classe per memorizzare un nodo heap
+//Classe per memorizzare un nodo heap
 class Node
 {
     int vertex;

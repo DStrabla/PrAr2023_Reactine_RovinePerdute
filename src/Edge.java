@@ -1,4 +1,4 @@
-// Una classe per memorizzare un bordo del graph
+//Classe per memorizzare un bordo del graph
 class Edge
 {
     int source, dest;

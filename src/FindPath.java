@@ -6,6 +6,14 @@ public class FindPath {
     static double costoCarburanteTonathiu;
     static double costoCarburanteMetztli;
 
+    /**
+     * Metodo per calcolare il percorso migliore tramite l'algoritmo Dijikstra's
+     * @param graph grafo con tutti i nodi e gli archi pesati
+     * @param source nodo da cui parte il discorso
+     * @param n numero dei nodi totali
+     * @param flag necessario per capire se il percorso che si sta calcolando è per il veicolo
+     *             Tonathiu o per il veicolo Metztli
+     */
     public static void findShortestPaths(Graph graph, int source, int n, int flag)
     {
         // crea un min-heap e invia il nodo sorgente con distanza 0
@@ -61,20 +69,15 @@ public class FindPath {
         List<Integer> route2 = new ArrayList<>();
 
         int i = n-1;
-        //for (int i = 0; i < n; i++)
         {
             if (i != source && dist.get(i) != Double.MAX_VALUE && flag == 0) {
                 getRoute(prev, i, route1);
-                System.out.println("Path (" + source + "->" + i + "): Minimum cost= " + dist.get(i) + ", Route=" + route1);
-                //System.out.println("Path (%d —> %d): Minimum cost = %d, Route = %s\n", source, i, dist.get(i), route);
                 costoCarburanteTonathiu = dist.get(i);
                 routes.add(route1);
             }
             if (i != source && dist.get(i) != Double.MAX_VALUE && flag == 1)
             {
                 getRoute(prev, i, route2);
-                System.out.println("Path ("+source+"->"+i+"): Minimum cost= "+dist.get(i)+", Route="+route2);
-                //System.out.println("Path (%d —> %d): Minimum cost = %d, Route = %s\n", source, i, dist.get(i), route);
                 costoCarburanteMetztli = dist.get(i);
                 routes.add(route2);
 
@@ -83,6 +86,12 @@ public class FindPath {
         }
     }
 
+    /**
+     * Metodo per ottenere il percorso da un nodo ada un altro
+     * @param prev nodo precedente
+     * @param i nodo da cui si parte
+     * @param route ArrayList che indica i nodi toccati
+     */
     private static void getRoute(int[] prev, int i, List<Integer> route)
     {
         if (i >= 0)

@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// Una classe per rappresentare un oggetto graph
+//Una classe per rappresentare un oggetto graph
 class Graph
 {
-    // Un elenco di elenchi per rappresentare un elenco di adiacenze
+    // Un elenco di elenchi per rappresentare un elenco di archi
     List<List<Edge>> adjList = null;
 
-    // Costruttore
+    //Costruttore
     Graph(List<Edge> edges, int n)
     {
         adjList = new ArrayList<>();
