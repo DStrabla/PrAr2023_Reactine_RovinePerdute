@@ -32,7 +32,7 @@ public class ControllerInputFile {
     private static String pathMap10000 = "./Input_File/PgAr_Map_10000.xml";
 
     /**
-     *
+     * Scelta e lettura del file XML; creazione della mappa con tutti i dati relativi alle città che la compongono
      * @param n
      * @throws XMLStreamException
      */
