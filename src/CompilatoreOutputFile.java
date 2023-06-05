@@ -71,7 +71,7 @@ public class CompilatoreOutputFile {
             System.out.println(e.getMessage());
         }
 
-        // blocco try per raccogliere eccezioni
+        // blocco try per raccogliere eccezioni.
         try {
             xmlwPercorso.writeCharacters(SPACE); //Per andare a capo
             xmlwPercorso.writeStartElement(ROUTES); // scrittura del tag radice <routes>
